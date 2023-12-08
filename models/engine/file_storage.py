@@ -40,7 +40,7 @@ class FileStorage:
         Method desirializes the JSON file to __objects
 
         Raises:
-FileNotFoundError: If the json file is not found
+           FileNotFoundError: If the json file is not found
         """
         from models.base_model import BaseModel
         if os.path.exists(self.__file_path):
