@@ -17,8 +17,13 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     __cls = [
-            "BaseModel", "User", "State",
-            "City", "Amenity", "Place", "Review"
+            "BaseModel",
+            "User",
+            "State",
+            "City",
+            "Amenity",
+            "Place",
+            "Review"
             ]
 
     def do_quit(self, line):
@@ -78,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(line) < 2:
             print("** instance id missing **")
         elif f"{line[0]}.{line[1]}" not in storage.all():
-            print("** no instance found **")
+            print("** !no instance found **")
         else:
             for key in storage.all():
                 if key == f"{line[0]}.{line[1]}":
@@ -129,12 +134,12 @@ class HBNBCommand(cmd.Cmd):
             obj_id = line[1]
             obj_key = f"{obj_cls}.{obj_id}"
             obj = storage.all()[obj_key]
-            
+
             attr_name = line[2]
             attr_val = line[3]
             if attr_val[0] == '"':
                 attr_val = attr_val[1:-1]
-            
+
             if hasattr(obj, attr_name):
                 value_type = type(getattr(obj, attr_name))
                 if value_type in [str, int, float]:
@@ -144,6 +149,26 @@ class HBNBCommand(cmd.Cmd):
                 setattr(obj, attr_name, attr_val)
             storage.save()
 
+    def default(self, line):
+        """
+        Retrieve all instances of a class
+        usage: <class name>.all()
+
+        Retrieve the number of instances of a class
+        Usage: <class name>.count()
+        """
+        cls_name, command = line.split(".")
+        if cls_name in self.__cls:
+            if command in "all()":
+                return self.do_all(cls_name)
+            elif command == "count()":
+                new_list = []
+                for key, value in storage.all().items():
+                    key = key.split(".")
+                    if key[0] != cls_name:
+                        continue
+                    new_list.append(str(value))
+                print(len(new_list))
 
 
 if __name__ == '__main__':
