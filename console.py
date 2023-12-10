@@ -114,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
         line = line.split()
         if len(line) == 0:
             print("** class name missing **")
-        elif line[0] not in self.__classes:
+        elif line[0] not in self.__cls:
             print("** class doesn't exist **")
         elif len(line) < 2:
             print("** instance id missing **")
@@ -129,10 +129,12 @@ class HBNBCommand(cmd.Cmd):
             obj_id = line[1]
             obj_key = f"{obj_cls}.{obj_id}"
             obj = storage.all()[obj_key]
+            
             attr_name = line[2]
             attr_val = line[3]
             if attr_val[0] == '"':
                 attr_val = attr_val[1:-1]
+            
             if hasattr(obj, attr_name):
                 value_type = type(getattr(obj, attr_name))
                 if value_type in [str, int, float]:
@@ -141,6 +143,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(obj, attr_name, attr_val)
             storage.save()
+
 
 
 if __name__ == '__main__':
