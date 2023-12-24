@@ -1,10 +1,14 @@
 .locations {
     border-right: 1px solid #DDDDDD;
 }
-.locations, .amenities {
+section.filters div.locations, section.filters div.amenities {
     height: 100%;
     width: 25%;
-    padding: 20px;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 50px;
+    margin: 0;
     box-sizing: border-box;
 }
 .locations h3, .amenities h3 {
@@ -16,7 +20,7 @@
     font-size: 14px;
     margin: 0;
 }
-.filters {
+section.filters {
     background-color: #FFFFFF;
     height: 70px;
     width: 100%;
@@ -24,4 +28,5 @@
     border-radius: 4px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
